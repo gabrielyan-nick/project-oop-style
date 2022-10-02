@@ -59,7 +59,7 @@ export default class MiniSlider extends Slider {
 
   autoPlaySlide() {
     if (this.autoplay) {
-      const autoPlayTimer = setInterval(() => this.nextSlide(), 2000);
+      const autoPlayTimer = setInterval(() => this.nextSlide(), 5000);
 
       this.container.addEventListener("mouseenter", () =>
         clearInterval(autoPlayTimer)

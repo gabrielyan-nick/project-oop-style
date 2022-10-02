@@ -1081,7 +1081,7 @@ a:active {
 .feed__slider ~ .slick-prev {
   z-index: 12;
   position: absolute;
-  bottom: 190px;
+  bottom: 285px;
   left: 740px;
   width: 43px;
   height: 43px;
@@ -1103,7 +1103,7 @@ a:active {
 .feed__slider ~ .slick-next {
   z-index: 12;
   position: absolute;
-  bottom: 190px;
+  bottom: 285px;
   left: 800px;
   width: 43px;
   height: 43px;

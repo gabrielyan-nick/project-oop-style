@@ -2763,6 +2763,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_slider_slider_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/slider/slider-main */ "./src/js/modules/slider/slider-main.js");
 /* harmony import */ var _modules_slider_slider_mini__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/slider/slider-mini */ "./src/js/modules/slider/slider-mini.js");
 /* harmony import */ var _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/playVideo */ "./src/js/modules/playVideo.js");
+/* harmony import */ var _modules_difference__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/difference */ "./src/js/modules/difference.js");
+
 
 
 
@@ -2799,7 +2801,86 @@ window.addEventListener("DOMContentLoaded", function () {
   feedSlider.init();
   var videoPlayer = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"](".showup .play", ".overlay");
   videoPlayer.init();
+  var difference = new _modules_difference__WEBPACK_IMPORTED_MODULE_3__["default"]('.officerold', '.officernew', '.officer__card-item');
+  difference.init();
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/difference.js":
+/*!**************************************!*\
+  !*** ./src/js/modules/difference.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Difference; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Difference =
+/*#__PURE__*/
+function () {
+  function Difference(oldColumn, newColumn, items) {
+    _classCallCheck(this, Difference);
+
+    this.oldColumn = document.querySelector(oldColumn);
+    this.newColumn = document.querySelector(newColumn);
+    this.oldColumnItems = this.oldColumn.querySelectorAll(items);
+    this.newColumnItems = this.newColumn.querySelectorAll(items);
+    this.oldCounter = 0;
+    this.newCounter = 0;
+  }
+
+  _createClass(Difference, [{
+    key: "bindTriggers",
+    value: function bindTriggers(trigger, items, counter) {
+      trigger.addEventListener("click", function () {
+        items.forEach(function (item) {
+          item.classList.add("animated", "fadeIn");
+        });
+
+        if (counter !== items.length - 2) {
+          items[counter].style.display = "flex";
+          counter++;
+        } else {
+          items[counter].style.display = "flex";
+          items[items.length - 1].remove();
+        }
+      });
+    }
+  }, {
+    key: "hideItems",
+    value: function hideItems(items) {
+      items.forEach(function (item, i, arr) {
+        if (i !== arr.length - 1) {
+          item.style.display = "none";
+        }
+      });
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      this.hideItems(this.oldColumnItems);
+      this.hideItems(this.newColumnItems);
+      this.bindTriggers(this.oldColumn.querySelector(".plus"), this.oldColumnItems, this.oldCounter);
+      this.bindTriggers(this.newColumn.querySelector(".plus"), this.newColumnItems, this.newCounter);
+    }
+  }]);
+
+  return Difference;
+}();
+
+
 
 /***/ }),
 
@@ -3177,7 +3258,7 @@ function (_Slider) {
       if (this.autoplay) {
         var autoPlayTimer = setInterval(function () {
           return _this3.nextSlide();
-        }, 2000);
+        }, 5000);
         this.container.addEventListener("mouseenter", function () {
           return clearInterval(autoPlayTimer);
         });
