@@ -5,6 +5,7 @@ const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
 
 const dist = "./dist/";
+// const dist = 'G:/install/ospanel/domains/OOP';
 
 
 gulp.task("copy-html", () => {

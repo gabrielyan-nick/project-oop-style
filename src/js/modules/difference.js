@@ -1,11 +1,13 @@
 export default class Difference {
   constructor(oldColumn, newColumn, items) {
-    this.oldColumn = document.querySelector(oldColumn);
-    this.newColumn = document.querySelector(newColumn);
-    this.oldColumnItems = this.oldColumn.querySelectorAll(items);
-    this.newColumnItems = this.newColumn.querySelectorAll(items);
-    this.oldCounter = 0;
-    this.newCounter = 0;
+    try {
+      this.oldColumn = document.querySelector(oldColumn);
+      this.newColumn = document.querySelector(newColumn);
+      this.oldColumnItems = this.oldColumn.querySelectorAll(items);
+      this.newColumnItems = this.newColumn.querySelectorAll(items);
+      this.oldCounter = 0;
+      this.newCounter = 0;
+    } catch (e) {}
   }
 
   bindTriggers(trigger, items, counter) {
@@ -33,17 +35,19 @@ export default class Difference {
   }
 
   init() {
-    this.hideItems(this.oldColumnItems);
-    this.hideItems(this.newColumnItems);
-    this.bindTriggers(
-      this.oldColumn.querySelector(".plus"),
-      this.oldColumnItems,
-      this.oldCounter
-    );
-    this.bindTriggers(
-      this.newColumn.querySelector(".plus"),
-      this.newColumnItems,
-      this.newCounter
-    );
+    try {
+      this.hideItems(this.oldColumnItems);
+      this.hideItems(this.newColumnItems);
+      this.bindTriggers(
+        this.oldColumn.querySelector(".plus"),
+        this.oldColumnItems,
+        this.oldCounter
+      );
+      this.bindTriggers(
+        this.newColumn.querySelector(".plus"),
+        this.newColumnItems,
+        this.newCounter
+      );
+    } catch (e) {}
   }
 }

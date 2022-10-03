@@ -1785,3 +1785,18 @@ a:active {
   -webkit-transform: none;
   transform: none;
 }
+
+.form-modal {
+  width: 300px;
+  height: 250px;
+  align-items: center;
+  background-color: #9fb2f7;
+  margin: 0 auto;
+  margin-top: 15%;
+  border-radius: 5px;
+  display: flex;
+}
+
+.form-modal img {
+  margin: auto;
+}

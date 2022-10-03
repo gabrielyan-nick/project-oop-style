@@ -1,11 +1,20 @@
 import MainSlider from "./modules/slider/slider-main";
 import MiniSlider from "./modules/slider/slider-mini";
 import VideoPlayer from "./modules/playVideo";
-import Difference from './modules/difference';
+import Difference from "./modules/difference";
+import Form from "./modules/forms";
 
 window.addEventListener("DOMContentLoaded", () => {
   const mainSlider = new MainSlider({ btns: ".next", container: ".page" });
   mainSlider.render();
+
+  const mainSliderModule = new MainSlider({
+    next: ".nextmodule",
+    prev: ".prevmodule",
+    container: ".moduleapp",
+    btns: ".sidecontrol .next"
+  });
+  mainSliderModule.render();
 
   const showupSlider = new MiniSlider({
     container: ".showup__content-slider",
@@ -38,6 +47,12 @@ window.addEventListener("DOMContentLoaded", () => {
   const videoPlayer = new VideoPlayer(".showup .play", ".overlay");
   videoPlayer.init();
 
-  const difference = new Difference('.officerold', '.officernew', '.officer__card-item');
+  const difference = new Difference(
+    ".officerold",
+    ".officernew",
+    ".officer__card-item"
+  );
   difference.init();
+
+  new Form(".form").init();
 });
