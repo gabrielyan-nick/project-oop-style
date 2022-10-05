@@ -202,6 +202,35 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/array-fill.js":
+/*!******************************************************!*\
+  !*** ./node_modules/core-js/internals/array-fill.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var toObject = __webpack_require__(/*! ../internals/to-object */ "./node_modules/core-js/internals/to-object.js");
+var toAbsoluteIndex = __webpack_require__(/*! ../internals/to-absolute-index */ "./node_modules/core-js/internals/to-absolute-index.js");
+var toLength = __webpack_require__(/*! ../internals/to-length */ "./node_modules/core-js/internals/to-length.js");
+
+// `Array.prototype.fill` method implementation
+// https://tc39.github.io/ecma262/#sec-array.prototype.fill
+module.exports = function fill(value /* , start = 0, end = @length */) {
+  var O = toObject(this);
+  var length = toLength(O.length);
+  var argumentsLength = arguments.length;
+  var index = toAbsoluteIndex(argumentsLength > 1 ? arguments[1] : undefined, length);
+  var end = argumentsLength > 2 ? arguments[2] : undefined;
+  var endPos = end === undefined ? length : toAbsoluteIndex(end, length);
+  while (endPos > index) O[index++] = value;
+  return O;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/array-for-each.js":
 /*!**********************************************************!*\
   !*** ./node_modules/core-js/internals/array-for-each.js ***!
@@ -2979,6 +3008,29 @@ exports.f = wellKnownSymbol;
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/es.array.fill.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/core-js/modules/es.array.fill.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+var fill = __webpack_require__(/*! ../internals/array-fill */ "./node_modules/core-js/internals/array-fill.js");
+var addToUnscopables = __webpack_require__(/*! ../internals/add-to-unscopables */ "./node_modules/core-js/internals/add-to-unscopables.js");
+
+// `Array.prototype.fill` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.fill
+$({ target: 'Array', proto: true }, {
+  fill: fill
+});
+
+// https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
+addToUnscopables('fill');
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/es.array.iterator.js":
 /*!***********************************************************!*\
   !*** ./node_modules/core-js/modules/es.array.iterator.js ***!
@@ -4961,6 +5013,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/playVideo */ "./src/js/modules/playVideo.js");
 /* harmony import */ var _modules_difference__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/difference */ "./src/js/modules/difference.js");
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
+/* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
+/* harmony import */ var _modules_download__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/download */ "./src/js/modules/download.js");
+
+
 
 
 
@@ -5004,12 +5060,80 @@ window.addEventListener("DOMContentLoaded", function () {
     activeClass: "feed__item-active"
   });
   feedSlider.init();
-  var videoPlayer = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"](".showup .play", ".overlay");
-  videoPlayer.init();
-  var difference = new _modules_difference__WEBPACK_IMPORTED_MODULE_3__["default"](".officerold", ".officernew", ".officer__card-item");
-  difference.init();
+  new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"](".showup .play", ".overlay").init();
+  new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.module__video-item .play', '.overlay').init();
+  new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.feed__item-play', '.overlay').init();
+  new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.schedule .play', '.overlay').init();
+  new _modules_difference__WEBPACK_IMPORTED_MODULE_3__["default"](".officerold", ".officernew", ".officer__card-item").init();
+  new _modules_accordion__WEBPACK_IMPORTED_MODULE_5__["default"]('.plus__content').init();
   new _modules_forms__WEBPACK_IMPORTED_MODULE_4__["default"](".form").init();
+  new _modules_download__WEBPACK_IMPORTED_MODULE_6__["default"]('.download').init();
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/accordion.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/accordion.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Accordion; });
+/* harmony import */ var core_js_modules_es_array_fill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.fill */ "./node_modules/core-js/modules/es.array.fill.js");
+/* harmony import */ var core_js_modules_es_array_fill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_fill__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Accordion =
+/*#__PURE__*/
+function () {
+  function Accordion(triggers) {
+    _classCallCheck(this, Accordion);
+
+    this.btns = document.querySelectorAll(triggers);
+  }
+
+  _createClass(Accordion, [{
+    key: "init",
+    value: function init() {
+      this.btns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var text = btn.closest(".module__info-show").nextElementSibling;
+          text.classList.remove("animated", "decInHeight", "growInHeight");
+
+          if (text.style.display == "block") {
+            text.classList.add("animated", "decInHeight");
+            setTimeout(function () {
+              return text.style.display = "none";
+            }, 700);
+            btn.style.background = "#9ec73d";
+            btn.querySelector("svg").children[0].attributes.fill.value = "white";
+          } else {
+            text.classList.add("animated", "growInHeight");
+            text.style.display = "block";
+            btn.style.background = "#ef5454";
+            btn.querySelector("svg").children[0].attributes.fill.value = "none";
+          }
+        });
+      });
+    }
+  }]);
+
+  return Accordion;
+}();
+
+
 
 /***/ }),
 
@@ -5088,6 +5212,67 @@ function () {
   }]);
 
   return Difference;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/js/modules/download.js":
+/*!************************************!*\
+  !*** ./src/js/modules/download.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Download; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Download =
+/*#__PURE__*/
+function () {
+  function Download(btns) {
+    _classCallCheck(this, Download);
+
+    this.btns = document.querySelectorAll(btns);
+    this.path = "assets/img/mainbg.jpg";
+  }
+
+  _createClass(Download, [{
+    key: "downloadItem",
+    value: function downloadItem(path) {
+      var elem = document.createElement("a");
+      elem.setAttribute("href", path);
+      elem.setAttribute("download", "pic");
+      elem.style.display = "none";
+      document.body.appendChild(elem);
+      elem.click();
+      document.body.removeChild(elem);
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      var _this = this;
+
+      this.btns.forEach(function (btn) {
+        btn.addEventListener("click", function (e) {
+          _this.downloadItem(_this.path);
+        });
+      });
+    }
+  }]);
+
+  return Download;
 }();
 
 
@@ -5325,7 +5510,12 @@ function () {
 
     this.btns = document.querySelectorAll(triggers);
     this.overlay = document.querySelector(overlay);
-    this.close = this.overlay.querySelector(".close");
+
+    try {
+      this.close = this.overlay.querySelector(".close");
+    } catch (e) {}
+
+    this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
   }
 
   _createClass(VideoPlayer, [{
@@ -5333,14 +5523,34 @@ function () {
     value: function bindTriggers() {
       var _this = this;
 
-      this.btns.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          if (_this.player) {
-            _this.overlay.style.display = "flex";
-          } else {
-            var path = btn.getAttribute("data-url");
+      this.btns.forEach(function (btn, i) {
+        try {
+          var blockedElem = btn.closest(".module__video-item").nextElementSibling; // Блокируем каждую вторую кнопку.
 
-            _this.createPlayer(path);
+          if (i % 2 == 0) {
+            blockedElem.setAttribute("data-disabled", "true");
+          }
+        } catch (e) {}
+
+        btn.addEventListener("click", function () {
+          if (!btn.closest(".module__video-item") || btn.closest(".module__video-item").getAttribute("data-disabled") !== "true") {
+            _this.activeBtn = btn;
+
+            if (_this.player) {
+              _this.overlay.style.display = "flex";
+
+              if (_this.path !== btn.getAttribute("data-url")) {
+                _this.path = btn.getAttribute("data-url");
+
+                _this.player.cueVideoById({
+                  videoId: _this.path
+                });
+              }
+            } else {
+              _this.path = btn.getAttribute("data-url");
+
+              _this.createPlayer(_this.path);
+            }
           }
         });
       });
@@ -5352,12 +5562,14 @@ function () {
 
       this.close.addEventListener("click", function () {
         _this2.overlay.style.display = "none";
+        console.log(_this2.player);
 
         _this2.player.stopVideo();
       });
       this.overlay.addEventListener("click", function (e) {
         if (e.target === _this2.overlay) {
           _this2.overlay.style.display = "none";
+          console.log(_this2.player);
 
           _this2.player.stopVideo();
         }
@@ -5369,20 +5581,45 @@ function () {
       this.player = new YT.Player("frame", {
         height: "100%",
         width: "100%",
-        videoId: url
+        videoId: url,
+        events: {
+          onStateChange: this.onPlayerStateChange
+        }
       });
       this.overlay.style.display = "flex";
     }
   }, {
+    key: "onPlayerStateChange",
+    value: function onPlayerStateChange(state) {
+      try {
+        var blockedElem = this.activeBtn.closest(".module__video-item").nextElementSibling;
+        var playBtn = this.activeBtn.querySelector("svg").cloneNode(true);
+
+        if (state.data === 0) {
+          if (blockedElem.querySelector(".play__circle").classList.contains("closed")) {
+            blockedElem.querySelector(".play__circle").classList.remove("closed");
+            blockedElem.querySelector("svg").remove();
+            blockedElem.querySelector(".play__circle").appendChild(playBtn);
+            blockedElem.querySelector(".play__text").textContent = "play video";
+            blockedElem.querySelector(".play__text").classList.remove("attention");
+            blockedElem.style.cssText = "\n        filter: none; \n        opacity: 1; \n  ";
+            blockedElem.setAttribute("data-disabled", "false");
+          }
+        }
+      } catch (e) {}
+    }
+  }, {
     key: "init",
     value: function init() {
-      var tag = document.createElement("script"); // Подключаем YT API.
+      if (this.btns.length > 0) {
+        var tag = document.createElement("script"); // Подключаем YT API.
 
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName("script")[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      this.bindTriggers();
-      this.bindCloseBtn();
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName("script")[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        this.bindTriggers();
+        this.bindCloseBtn();
+      }
     }
   }]);
 
@@ -5683,11 +5920,15 @@ function (_Slider) {
     value: function bindTriggers() {
       var _this2 = this;
 
-      this.next.addEventListener("click", function () {
-        return _this2.nextSlide();
+      this.next.forEach(function (item) {
+        item.addEventListener("click", function () {
+          return _this2.nextSlide();
+        });
       });
-      this.prev.addEventListener("click", function () {
-        return _this2.prevSlide();
+      this.prev.forEach(function (item) {
+        item.addEventListener("click", function () {
+          return _this2.prevSlide();
+        });
       });
     }
   }, {

@@ -3,6 +3,8 @@ import MiniSlider from "./modules/slider/slider-mini";
 import VideoPlayer from "./modules/playVideo";
 import Difference from "./modules/difference";
 import Form from "./modules/forms";
+import Accordion from "./modules/accordion";
+import Download from "./modules/download";
 
 window.addEventListener("DOMContentLoaded", () => {
   const mainSlider = new MainSlider({ btns: ".next", container: ".page" });
@@ -12,7 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
     next: ".nextmodule",
     prev: ".prevmodule",
     container: ".moduleapp",
-    btns: ".sidecontrol .next"
+    btns: ".sidecontrol .next",
   });
   mainSliderModule.render();
 
@@ -44,15 +46,12 @@ window.addEventListener("DOMContentLoaded", () => {
   });
   feedSlider.init();
 
-  const videoPlayer = new VideoPlayer(".showup .play", ".overlay");
-  videoPlayer.init();
-
-  const difference = new Difference(
-    ".officerold",
-    ".officernew",
-    ".officer__card-item"
-  );
-  difference.init();
-
+  new VideoPlayer(".showup .play", ".overlay").init();
+  new VideoPlayer('.module__video-item .play', '.overlay').init();
+  new VideoPlayer('.feed__item-play', '.overlay').init();
+  new VideoPlayer('.schedule .play', '.overlay').init();
+  new Difference(".officerold", ".officernew", ".officer__card-item").init();
+  new Accordion('.plus__content').init();
   new Form(".form").init();
+  new Download('.download').init();
 });
