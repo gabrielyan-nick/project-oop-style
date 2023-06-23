@@ -1,52 +1,52 @@
 export default class Form {
   constructor(form) {
     this.forms = document.querySelectorAll(form);
-    this.inputs = document.querySelectorAll('input');
+    this.inputs = document.querySelectorAll("input");
   }
 
   phoneMask() {
     const phoneInputs = document.querySelectorAll('[name="phone"]');
 
     function createMask(event) {
-        let matrix = "+1 (___) ___-____",
-          i = 0,
-          def = matrix.replace(/\D/g, ""),
-          val = this.value.replace(/\D/g, "");
-    
-        if (def.length >= val.length) {
-          val = def;
-        }
-    
-        this.value = matrix.replace(/./g, function (a) {
-          return /[_\d]/.test(a) && i < val.length
-            ? val.charAt(i++)
-            : i >= val.length
-            ? ""
-            : a;
-        });
-    
-        if (event.type === "blur") {
-          if (this.value.length == 2) {
-            this.value = "";
-          }
-        } else {
-          this.setSelectionRange(this.value.length, this.value.length);
-        }
+      let matrix = "+1 (___) ___-____",
+        i = 0,
+        def = matrix.replace(/\D/g, ""),
+        val = this.value.replace(/\D/g, "");
+
+      if (def.length >= val.length) {
+        val = def;
       }
 
-      phoneInputs.forEach(input => {
-        input.addEventListener('input', createMask);
-        input.addEventListener('click', createMask);
-        input.addEventListener('focus', createMask);
-        input.addEventListener('blur', createMask);
-        input.addEventListener("keydown", (e) => {
-            if (e.code === "ArrowLeft") {
-              if (input.selectionStart === 1 || input.selectionStart === 2) {
-                input.setSelectionRange(2, 2);
-              }
-            }
-          });
+      this.value = matrix.replace(/./g, function (a) {
+        return /[_\d]/.test(a) && i < val.length
+          ? val.charAt(i++)
+          : i >= val.length
+          ? ""
+          : a;
       });
+
+      if (event.type === "blur") {
+        if (this.value.length == 2) {
+          this.value = "";
+        }
+      } else {
+        this.setSelectionRange(this.value.length, this.value.length);
+      }
+    }
+
+    phoneInputs.forEach((input) => {
+      input.addEventListener("input", createMask);
+      input.addEventListener("click", createMask);
+      input.addEventListener("focus", createMask);
+      input.addEventListener("blur", createMask);
+      input.addEventListener("keydown", (e) => {
+        if (e.code === "ArrowLeft") {
+          if (input.selectionStart === 1 || input.selectionStart === 2) {
+            input.setSelectionRange(2, 2);
+          }
+        }
+      });
+    });
   }
 
   noCyrillicInput(inputtype) {
@@ -103,13 +103,11 @@ export default class Form {
         const formData = new FormData(form);
         this.postData("assets/question.php", formData)
           .then((res) => {
-            console.log(res);
             this.clearForm();
             document.querySelector(".form-modal").remove();
             this.modalMessage("ok");
           })
           .catch((res) => {
-            console.log(res);
             this.clearForm();
             document.querySelector(".form-modal").remove();
             this.modalMessage("fail");

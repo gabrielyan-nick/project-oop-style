@@ -5062,8 +5062,8 @@ window.addEventListener("DOMContentLoaded", function () {
   feedSlider.init();
   new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"](".showup .play", ".overlay").init();
   new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.module__video-item .play', '.overlay').init();
-  new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.feed__item-play', '.overlay').init();
-  new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.schedule .play', '.overlay').init();
+  new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.feed__item-play', '.overlay').init(); // new VideoPlayer('.schedule .play', '.overlay').init();
+
   new _modules_difference__WEBPACK_IMPORTED_MODULE_3__["default"](".officerold", ".officernew", ".officer__card-item").init();
   new _modules_accordion__WEBPACK_IMPORTED_MODULE_5__["default"]('.plus__content').init();
   new _modules_forms__WEBPACK_IMPORTED_MODULE_4__["default"](".form").init();
@@ -5321,7 +5321,7 @@ function () {
     _classCallCheck(this, Form);
 
     this.forms = document.querySelectorAll(form);
-    this.inputs = document.querySelectorAll('input');
+    this.inputs = document.querySelectorAll("input");
   }
 
   _createClass(Form, [{
@@ -5353,10 +5353,10 @@ function () {
       }
 
       phoneInputs.forEach(function (input) {
-        input.addEventListener('input', createMask);
-        input.addEventListener('click', createMask);
-        input.addEventListener('focus', createMask);
-        input.addEventListener('blur', createMask);
+        input.addEventListener("input", createMask);
+        input.addEventListener("click", createMask);
+        input.addEventListener("focus", createMask);
+        input.addEventListener("blur", createMask);
         input.addEventListener("keydown", function (e) {
           if (e.code === "ArrowLeft") {
             if (input.selectionStart === 1 || input.selectionStart === 2) {
@@ -5446,16 +5446,12 @@ function () {
           var formData = new FormData(form);
 
           _this.postData("assets/question.php", formData).then(function (res) {
-            console.log(res);
-
             _this.clearForm();
 
             document.querySelector(".form-modal").remove();
 
             _this.modalMessage("ok");
           }).catch(function (res) {
-            console.log(res);
-
             _this.clearForm();
 
             document.querySelector(".form-modal").remove();
@@ -5562,14 +5558,12 @@ function () {
 
       this.close.addEventListener("click", function () {
         _this2.overlay.style.display = "none";
-        console.log(_this2.player);
 
         _this2.player.stopVideo();
       });
       this.overlay.addEventListener("click", function (e) {
         if (e.target === _this2.overlay) {
           _this2.overlay.style.display = "none";
-          console.log(_this2.player);
 
           _this2.player.stopVideo();
         }

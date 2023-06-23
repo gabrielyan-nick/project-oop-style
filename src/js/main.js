@@ -49,7 +49,7 @@ window.addEventListener("DOMContentLoaded", () => {
   new VideoPlayer(".showup .play", ".overlay").init();
   new VideoPlayer('.module__video-item .play', '.overlay').init();
   new VideoPlayer('.feed__item-play', '.overlay').init();
-  new VideoPlayer('.schedule .play', '.overlay').init();
+  // new VideoPlayer('.schedule .play', '.overlay').init();
   new Difference(".officerold", ".officernew", ".officer__card-item").init();
   new Accordion('.plus__content').init();
   new Form(".form").init();

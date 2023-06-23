@@ -46,14 +46,12 @@ export default class VideoPlayer {
   bindCloseBtn() {
     this.close.addEventListener("click", () => {
       this.overlay.style.display = "none";
-      console.log(this.player);
       this.player.stopVideo();
     });
 
     this.overlay.addEventListener("click", (e) => {
       if (e.target === this.overlay) {
         this.overlay.style.display = "none";
-        console.log(this.player);
         this.player.stopVideo();
       }
     });
